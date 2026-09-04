@@ -233,15 +233,16 @@ def get_whois(
     api_key: str = ""
 ) -> dict:
 
-    if indicator_type == "IP Address":
-        return {
-            "source": "WHOIS",
-            "status": "not_applicable",
-            "message": (
-                "WHOIS domain registration data is not used "
-                "for IP addresses."
-            )
-        }
+   if indicator_type == "IP Address":
+    return {
+        "source": "WHOIS",
+        "status": "not_applicable",
+        "message": (
+            "Domain WHOIS registration data is not applicable "
+            "to IP addresses. Use IP WHOIS/RDAP for network "
+            "ownership and registration information."
+        )
+    }
 
     hostname = normalize_indicator(
         indicator,
