@@ -14,7 +14,7 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* 1. HIDE TOP WHITE HEADER BAR & DECORATOR LINE */
+/* 1. HIDE TOP HEADER BAR & DECORATOR LINE */
 header[data-testid="stHeader"] {
     background-color: transparent !important;
 }
@@ -51,40 +51,45 @@ label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     font-weight: 600 !important;
 }
 
-/* 5. FIX FOR SELECTBOX & DROPDOWN MENU VISIBILITY */
-/* Input box background & text */
+/* 5. SELECTBOX & DROPDOWN MENU VISIBILITY */
 div[data-baseweb="select"] > div {
     background-color: rgba(30, 41, 59, 0.8) !important;
     color: #ffffff !important;
     border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Dropdown list popover container fix */
 div[data-baseweb="popover"] div {
     background-color: #1e293b !important;
     color: #ffffff !important;
 }
 
-/* Dropdown menu item list text */
 li[role="option"] {
     color: #ffffff !important;
     background-color: #1e293b !important;
 }
 
-/* Dropdown menu item hover state */
 li[role="option"]:hover, li[aria-selected="true"] {
     background-color: #3b82f6 !important;
     color: #ffffff !important;
 }
 
-/* Text area & text input styling */
+/* 6. TEXT AREA & INPUT STYLING */
 input, textarea {
     background-color: rgba(30, 41, 59, 0.8) !important;
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* 6. GRADIENT HERO HEADER */
+/* FIX: Make Password Eye Toggle Icon Bright White */
+button[aria-label="Show password text"], 
+button[aria-label="Hide password text"], 
+[data-testid="stTextInput"] button svg {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* 7. GRADIENT HERO HEADER */
 .hero-header {
     background: linear-gradient(90deg, #ff007f 0%, #7928ca 50%, #4338ca 100%);
     -webkit-background-clip: text;
@@ -100,7 +105,7 @@ input, textarea {
     margin-bottom: 2rem;
 }
 
-/* 7. GLASSMORPHISM CONTAINER FOR GENERATED CONTENT */
+/* 8. GLASSMORPHISM CONTAINER FOR GENERATED CONTENT */
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -111,7 +116,7 @@ input, textarea {
     margin-bottom: 20px;
 }
 
-/* 8. VIBRANT GENERATE BUTTON */
+/* 9. VIBRANT GENERATE BUTTON */
 .stButton > button {
     background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%) !important;
     color: white !important;
