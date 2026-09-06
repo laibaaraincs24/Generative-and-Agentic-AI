@@ -169,17 +169,25 @@ with st.sidebar:
         value=st.secrets.get("GROQ_API_KEY", "")
     )
     
-    # Updated selection of active Groq model IDs
+    # DYNAMIC MODEL FETCHING: Fetch only active models available to your specific key
+    available_models = ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.6-27b"]
+    
+    if groq_api_key:
+        try:
+            client_check = Groq(api_key=groq_api_key)
+            fetched_models = client_check.models.list()
+            # Filter for text models
+            dynamic_list = [m.id for m in fetched_models.data if not any(x in m.id for x in ['whisper', 'tts', 'guard', 'vision', 'safeguard'])]
+            if dynamic_list:
+                available_models = sorted(dynamic_list)
+        except Exception:
+            pass  # Fallback to default list if API key isn't validated yet
+            
     selected_model = st.selectbox(
         "AI Model",
-        [
-            "llama-3.3-70b-versatile",
-            "meta-llama/llama-4-scout-17b-16e-instruct",
-            "qwen/qwen3-32b",
-            "openai/gpt-oss-120b"
-        ],
+        available_models,
         index=0,
-        help="Select an active Groq model for fast content generation."
+        help="Select an active Groq model fetched directly from your account."
     )
     
     st.markdown("---")
