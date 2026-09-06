@@ -14,19 +14,19 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* 1. HIDE FOOTER BUT ENSURE HEADER AND SIDEBAR TOGGLE REMAIN VISIBLE */
+/* 1. KEEP HEADER AND SIDEBAR TOGGLE BUTTON FULLY VISIBLE */
 footer { visibility: hidden; }
 
 header[data-testid="stHeader"] {
     background: transparent !important;
+    display: block !important;
 }
 
-/* Ensure expand/collapse arrow is visible */
 [data-testid="stSidebarCollapseButton"] button,
 button[aria-label="Toggle sidebar"],
 [data-testid="stHeader"] button {
     color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.15) !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
     border-radius: 8px !important;
 }
 
@@ -92,7 +92,7 @@ input, textarea {
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Eye icon styling for password input */
+/* Password Eye Icon Visibility */
 button[aria-label="Show password text"], 
 button[aria-label="Hide password text"], 
 [data-testid="stTextInput"] button svg {
@@ -169,12 +169,17 @@ with st.sidebar:
         value=st.secrets.get("GROQ_API_KEY", "")
     )
     
-    # Active, supported Groq models
+    # Updated selection of active Groq model IDs
     selected_model = st.selectbox(
         "AI Model",
-        ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
+        [
+            "llama-3.3-70b-versatile",
+            "meta-llama/llama-4-scout-17b-16e-instruct",
+            "qwen/qwen3-32b",
+            "openai/gpt-oss-120b"
+        ],
         index=0,
-        help="llama-3.3-70b-versatile delivers state-of-the-art content generation quality."
+        help="Select an active Groq model for fast content generation."
     )
     
     st.markdown("---")
