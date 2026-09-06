@@ -30,13 +30,12 @@ footer { visibility: hidden; }
     color: #f8fafc !important;
 }
 
-/* 3. SIDEBAR STYLING & SIDEBAR TITLES VISIBILITY FIX */
+/* 3. SIDEBAR STYLING & TEXT VISIBILITY */
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%) !important;
     border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* FIX: Force sidebar titles, headers, and text to be fully visible (white) */
 [data-testid="stSidebar"] h1, 
 [data-testid="stSidebar"] h2, 
 [data-testid="stSidebar"] h3, 
@@ -45,14 +44,47 @@ footer { visibility: hidden; }
     color: #ffffff !important;
 }
 
-/* 4. MAIN BODY LABELS VISIBILITY FIX */
+/* 4. MAIN FORM LABELS VISIBILITY */
 label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     color: #ffffff !important;
     font-size: 1rem !important;
     font-weight: 600 !important;
 }
 
-/* 5. GRADIENT HERO HEADER */
+/* 5. FIX FOR SELECTBOX & DROPDOWN MENU VISIBILITY */
+/* Input box background & text */
+div[data-baseweb="select"] > div {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Dropdown list popover container fix */
+div[data-baseweb="popover"] div {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+}
+
+/* Dropdown menu item list text */
+li[role="option"] {
+    color: #ffffff !important;
+    background-color: #1e293b !important;
+}
+
+/* Dropdown menu item hover state */
+li[role="option"]:hover, li[aria-selected="true"] {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+/* Text area & text input styling */
+input, textarea {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 6. GRADIENT HERO HEADER */
 .hero-header {
     background: linear-gradient(90deg, #ff007f 0%, #7928ca 50%, #4338ca 100%);
     -webkit-background-clip: text;
@@ -68,7 +100,7 @@ label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     margin-bottom: 2rem;
 }
 
-/* 6. GLASSMORPHISM CONTAINER FOR GENERATED CONTENT */
+/* 7. GLASSMORPHISM CONTAINER FOR GENERATED CONTENT */
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -79,7 +111,7 @@ label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     margin-bottom: 20px;
 }
 
-/* 7. VIBRANT GENERATE BUTTON */
+/* 8. VIBRANT GENERATE BUTTON */
 .stButton > button {
     background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%) !important;
     color: white !important;
@@ -96,11 +128,6 @@ label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
 .stButton > button:hover {
     transform: translateY(-2px);
     box-shadow: 0px 6px 20px rgba(236, 72, 153, 0.6) !important;
-}
-
-/* 8. INPUT/SELECT BOX TEXT COLOR */
-div[data-baseweb="select"] > div, input, textarea {
-    color: #ffffff !important;
 }
 </style>
 """
