@@ -14,15 +14,30 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* 1. HIDE TOP HEADER BAR & DECORATOR LINE */
-header[data-testid="stHeader"] {
-    background-color: transparent !important;
-}
-div[data-testid="stToolbar"] {
-    visibility: hidden;
-}
+/* 1. HIDE TOOLBAR & FOOTER BUT KEEP SIDEBAR TOGGLE BUTTON VISIBLE */
+div[data-testid="stToolbar"] { visibility: hidden; }
 #MainMenu { visibility: hidden; }
 footer { visibility: hidden; }
+
+/* FIX: Restore visibility and style top header buttons & sidebar toggle arrow */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    z-index: 999999 !important;
+}
+
+[data-testid="stHeader"] button, 
+[data-testid="stSidebarCollapseButton"] button,
+button[aria-label="Toggle sidebar"] {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stHeader"] svg, 
+[data-testid="stSidebarCollapseButton"] svg {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+}
 
 /* 2. MAIN APP BACKGROUND */
 .stApp {
@@ -80,7 +95,7 @@ input, textarea {
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* FIX: Make Password Eye Toggle Icon Bright White */
+/* Make Password Eye Toggle Icon Bright White */
 button[aria-label="Show password text"], 
 button[aria-label="Hide password text"], 
 [data-testid="stTextInput"] button svg {
@@ -159,7 +174,7 @@ with st.sidebar:
     
     selected_model = st.selectbox(
         "AI Model",
-        ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
+        ["llama-3.3-70b-specdec", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768"],
         index=0,
         help="Llama 3.3 70B produces the highest quality social content."
     )
