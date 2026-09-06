@@ -14,27 +14,24 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
-/* 1. HIDE TOOLBAR & FOOTER BUT KEEP SIDEBAR TOGGLE BUTTON VISIBLE */
-div[data-testid="stToolbar"] { visibility: hidden; }
-#MainMenu { visibility: hidden; }
+/* 1. HIDE FOOTER BUT ENSURE HEADER AND SIDEBAR TOGGLE REMAIN VISIBLE */
 footer { visibility: hidden; }
 
-/* FIX: Restore visibility and style top header buttons & sidebar toggle arrow */
 header[data-testid="stHeader"] {
     background: transparent !important;
-    z-index: 999999 !important;
 }
 
-[data-testid="stHeader"] button, 
+/* Ensure expand/collapse arrow is visible */
 [data-testid="stSidebarCollapseButton"] button,
-button[aria-label="Toggle sidebar"] {
+button[aria-label="Toggle sidebar"],
+[data-testid="stHeader"] button {
     color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
     border-radius: 8px !important;
 }
 
-[data-testid="stHeader"] svg, 
-[data-testid="stSidebarCollapseButton"] svg {
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stHeader"] svg {
     fill: #ffffff !important;
     color: #ffffff !important;
 }
@@ -95,7 +92,7 @@ input, textarea {
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Make Password Eye Toggle Icon Bright White */
+/* Eye icon styling for password input */
 button[aria-label="Show password text"], 
 button[aria-label="Hide password text"], 
 [data-testid="stTextInput"] button svg {
@@ -172,11 +169,12 @@ with st.sidebar:
         value=st.secrets.get("GROQ_API_KEY", "")
     )
     
+    # Active, supported Groq models
     selected_model = st.selectbox(
         "AI Model",
-        ["llama-3.3-70b-specdec", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768"],
+        ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
         index=0,
-        help="Llama 3.3 70B produces the highest quality social content."
+        help="llama-3.3-70b-versatile delivers state-of-the-art content generation quality."
     )
     
     st.markdown("---")
