@@ -3,7 +3,7 @@ import streamlit as st
 from groq import Groq
 
 # -----------------------------------------------------------------------------
-# 1. PAGE CONFIGURATION & CUSTOM STYLING (Vibrant Theme + Fixed High Contrast)
+# 1. PAGE CONFIGURATION & CUSTOM STYLING
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="AI Social Content Studio",
@@ -12,31 +12,49 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for high-visibility labels and dark vibrant social theme
 CUSTOM_CSS = """
 <style>
-/* Main Background Gradient */
+/* 1. HIDE TOP WHITE HEADER BAR & DECORATOR LINE */
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+}
+div[data-testid="stToolbar"] {
+    visibility: hidden;
+}
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+
+/* 2. MAIN APP BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1f293d 100%);
-    color: #f0f6fc;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #111827 100%) !important;
+    color: #f8fafc !important;
 }
 
-/* FIX: Force all input labels, widget titles, and text to be bright white */
+/* 3. SIDEBAR STYLING & SIDEBAR TITLES VISIBILITY FIX */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* FIX: Force sidebar titles, headers, and text to be fully visible (white) */
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2, 
+[data-testid="stSidebar"] h3, 
+[data-testid="stSidebar"] span, 
+[data-testid="stSidebar"] p {
+    color: #ffffff !important;
+}
+
+/* 4. MAIN BODY LABELS VISIBILITY FIX */
 label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     color: #ffffff !important;
     font-size: 1rem !important;
     font-weight: 600 !important;
 }
 
-/* Sidebar Gradient Styling */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Header Gradient */
+/* 5. GRADIENT HERO HEADER */
 .hero-header {
-    background: linear-gradient(90deg, #FF416C 0%, #8A2387 50%, #E94057 100%);
+    background: linear-gradient(90deg, #ff007f 0%, #7928ca 50%, #4338ca 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.8rem;
@@ -50,37 +68,37 @@ label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
     margin-bottom: 2rem;
 }
 
-/* Glassmorphism Output Container */
+/* 6. GLASSMORPHISM CONTAINER FOR GENERATED CONTENT */
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     backdrop-filter: blur(8px);
     margin-bottom: 20px;
 }
 
-/* Primary Generate Button */
+/* 7. VIBRANT GENERATE BUTTON */
 .stButton > button {
-    background: linear-gradient(90deg, #f72585 0%, #7209b7 100%) !important;
+    background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%) !important;
     color: white !important;
     border-radius: 12px !important;
     padding: 0.6rem 2rem !important;
     font-size: 1.1rem !important;
     font-weight: 700 !important;
     border: none !important;
-    box-shadow: 0px 4px 15px rgba(247, 37, 133, 0.4) !important;
+    box-shadow: 0px 4px 15px rgba(236, 72, 153, 0.4) !important;
     transition: all 0.3s ease !important;
     width: 100%;
 }
 
 .stButton > button:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 6px 20px rgba(247, 37, 133, 0.6) !important;
+    box-shadow: 0px 6px 20px rgba(236, 72, 153, 0.6) !important;
 }
 
-/* Text Inputs & Selectboxes Text Color */
+/* 8. INPUT/SELECT BOX TEXT COLOR */
 div[data-baseweb="select"] > div, input, textarea {
     color: #ffffff !important;
 }
@@ -98,8 +116,7 @@ st.markdown('<p class="sub-header">Craft platform-ready content, captions, and t
 # 3. SIDEBAR CONFIGURATION
 # -----------------------------------------------------------------------------
 with st.sidebar:
-    # FIX: Replaced broken external image URL with clean Markdown header
-    st.markdown("## ✨ Engine Setup")
+    st.markdown("## ⚙️ Engine Setup")
     
     groq_api_key = st.text_input(
         "Groq API Key", 
