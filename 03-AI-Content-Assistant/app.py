@@ -3,7 +3,7 @@ import streamlit as st
 from groq import Groq
 
 # -----------------------------------------------------------------------------
-# 1. PAGE CONFIGURATION & CUSTOM STYLING (Vibrant Theme)
+# 1. PAGE CONFIGURATION & CUSTOM STYLING (Vibrant Theme + Fixed High Contrast)
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="AI Social Content Studio",
@@ -12,22 +12,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for colorful social-media inspired design
+# Custom CSS for high-visibility labels and dark vibrant social theme
 CUSTOM_CSS = """
 <style>
 /* Main Background Gradient */
 .stApp {
-    background: linear-gradient(135deg, #101014 0%, #1a1a2e 50%, #16213e 100%);
-    color: #f1f1f1;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1f293d 100%);
+    color: #f0f6fc;
+}
+
+/* FIX: Force all input labels, widget titles, and text to be bright white */
+label, div[data-testid="stMarkdownContainer"] p, .stWidgetLabel {
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
 }
 
 /* Sidebar Gradient Styling */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #110e2e 0%, #1c0e35 100%);
+    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Vibrant Header Container */
+/* Header Gradient */
 .hero-header {
     background: linear-gradient(90deg, #FF416C 0%, #8A2387 50%, #E94057 100%);
     -webkit-background-clip: text;
@@ -35,16 +42,15 @@ CUSTOM_CSS = """
     font-size: 2.8rem;
     font-weight: 800;
     margin-bottom: 0px;
-    text-shadow: 0px 4px 15px rgba(255, 65, 108, 0.2);
 }
 
 .sub-header {
-    color: #A0AEC0;
+    color: #cbd5e1 !important;
     font-size: 1.1rem;
     margin-bottom: 2rem;
 }
 
-/* Modern Card / Container Styling */
+/* Glassmorphism Output Container */
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -74,12 +80,9 @@ CUSTOM_CSS = """
     box-shadow: 0px 6px 20px rgba(247, 37, 133, 0.6) !important;
 }
 
-/* Output Textarea Styling */
-.stTextArea textarea {
-    background-color: rgba(15, 23, 42, 0.6) !important;
-    color: #e2e8f0 !important;
-    border-radius: 10px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* Text Inputs & Selectboxes Text Color */
+div[data-baseweb="select"] > div, input, textarea {
+    color: #ffffff !important;
 }
 </style>
 """
@@ -92,13 +95,12 @@ st.markdown('<h1 class="hero-header">✨ Social Studio AI</h1>', unsafe_allow_ht
 st.markdown('<p class="sub-header">Craft platform-ready content, captions, and trending hashtags in seconds.</p>', unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# 3. SIDEBAR CONFIGURATION (Groq API Key & Model)
+# 3. SIDEBAR CONFIGURATION
 # -----------------------------------------------------------------------------
 with st.sidebar:
-    st.image("https://img.icons8.com/isometric-folders/100/sparkles.png", width=64)
-    st.title("⚙️ Engine Setup")
+    # FIX: Replaced broken external image URL with clean Markdown header
+    st.markdown("## ✨ Engine Setup")
     
-    # Allows inputting API key via sidebar or reading from Streamlit Secrets
     groq_api_key = st.text_input(
         "Groq API Key", 
         type="password", 
@@ -199,12 +201,10 @@ Please format the response clearly into 3 visual sections:
             st.markdown("---")
             st.markdown("### 🎉 Generated Result")
             
-            # Display generated content inside a styled container
             st.markdown('<div class="glass-card">', unsafe_allow_html=True)
             st.markdown(generated_text)
             st.markdown('</div>', unsafe_allow_html=True)
             
-            # Allow user to easily copy output
             st.text_area("📋 Raw Text (for easy copying):", value=generated_text, height=250)
 
         except Exception as e:
