@@ -4,9 +4,10 @@ from google.genai import types
 
 class MultiStageStudyPackPipeline:
     def __init__(self, api_key: str, temperature: float = 0.7):
-        # Initialize client with the new google-genai SDK
+        # Initialize client with API key
         self.client = genai.Client(api_key=api_key)
-        self.model_name = "gemini-2.5-flash"
+        # Updated to active Flash model endpoint
+        self.model_name = "gemini-3.6-flash"
         self.config = types.GenerateContentConfig(
             temperature=temperature
         )
