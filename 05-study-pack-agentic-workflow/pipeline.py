@@ -7,8 +7,9 @@ class MultiStageStudyPackPipeline:
         self.generation_config = genai.types.GenerationConfig(
             temperature=temperature
         )
+        # Updated active model identifier
         self.model = genai.GenerativeModel(
-            "gemini-2.5-flash",
+            "gemini-1.5-flash",
             generation_config=self.generation_config
         )
         self.context = {}
