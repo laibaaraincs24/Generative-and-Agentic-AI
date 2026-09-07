@@ -1,16 +1,14 @@
 import json
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 class MultiStageStudyPackPipeline:
     def __init__(self, api_key: str, temperature: float = 0.7):
-        genai.configure(api_key=api_key)
-        self.generation_config = genai.types.GenerationConfig(
+        # Initialize client with the new google-genai SDK
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = "gemini-2.5-flash"
+        self.config = types.GenerateContentConfig(
             temperature=temperature
-        )
-        # Updated active model identifier
-        self.model = genai.GenerativeModel(
-            "gemini-1.5-flash",
-            generation_config=self.generation_config
         )
         self.context = {}
 
@@ -26,7 +24,11 @@ class MultiStageStudyPackPipeline:
         Source Text: {source_text}
         Output ONLY raw valid JSON.
         """
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=self.config
+        )
         try:
             clean_json = response.text.strip().replace("```json", "").replace("```", "")
             self.context["plan"] = json.loads(clean_json)
@@ -44,7 +46,11 @@ class MultiStageStudyPackPipeline:
         
         Task: Draft a comprehensive summary with structured Markdown headings.
         """
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=self.config
+        )
         self.context["content"] = response.text
         return self.context["content"]
 
@@ -56,7 +62,11 @@ class MultiStageStudyPackPipeline:
         
         Task: Generate 5 flashcards (Q&A format) and 3 multiple-choice questions with answer keys.
         """
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=self.config
+        )
         self.context["assessment"] = response.text
         return self.context["assessment"]
 
@@ -70,7 +80,11 @@ class MultiStageStudyPackPipeline:
         
         Task: Provide targeted feedback or write 'APPROVED' if optimal.
         """
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=self.config
+        )
         self.context["review"] = response.text
         return self.context["review"]
 
@@ -85,6 +99,10 @@ class MultiStageStudyPackPipeline:
         
         Task: Output the complete, polished study pack formatted cleanly in Markdown.
         """
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=self.config
+        )
         self.context["final_pack"] = response.text
         return self.context["final_pack"]
