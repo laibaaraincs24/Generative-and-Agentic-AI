@@ -311,11 +311,7 @@ Possible future enhancements include:
 - Additional document formats
 - More advanced ATS simulation
 
----
 
-## 👩‍💻 Author
-
-**Laiba Arain**
 
 ResumeLens was developed as an AI-powered portfolio project demonstrating the use of:
 
