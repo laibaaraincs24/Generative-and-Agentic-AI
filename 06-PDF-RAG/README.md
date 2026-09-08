@@ -455,17 +455,7 @@ Answer
 
 ---
 
-## 👨‍💻 Author
 
-**Your Name**
-
-GitHub:
-
-```text
-https://github.com/YOUR_USERNAME
-```
-
----
 
 ## ⭐ If You Like This Project
 
