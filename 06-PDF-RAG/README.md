@@ -1,20 +1,10 @@
-# 📚 DocuRAG
+# 📚 PDF RAG Chatbot
 
 ### AI-Powered PDF Question Answering using RAG, FAISS & Groq
 
 DocuRAG is a Retrieval-Augmented Generation (RAG) application that allows users to upload a PDF document and ask questions about its contents.
 
 The application extracts text from the PDF, splits the text into overlapping chunks, creates local vector embeddings, stores those embeddings in a FAISS vector index, retrieves the most relevant chunks for a user's question, and sends the retrieved context to a Groq-hosted open-source language model to generate the final answer.
-
----
-
-## 🚀 Live Demo
-
-Add your deployed Streamlit URL here:
-
-```text
-https://your-app-name.streamlit.app
-```
 
 ---
 
